@@ -1,0 +1,26 @@
+{
+  "name": "tw-border",
+  "version": "1.0.0",
+  "description": "Tailwind CSS v4 plugin for advanced border customization and animations",
+  "keywords": [
+    "animate",
+    "animation",
+    "border",
+    "css",
+    "dashed",
+    "tailwind",
+    "tailwindcss"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Bryant Le",
+    "url": "https://bryantleft.com"
+  },
+  "main": "./dist/tw-border.css",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "pnpx @tailwindcss/cli -i ./src/tw-border.css -o ./dist/tw-border.css -m"
+  }
+}
