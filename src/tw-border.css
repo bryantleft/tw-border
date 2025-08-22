@@ -1,5 +1,3 @@
-/* Border Style */
-/* TODO: override other border-style variants */
 .border-dashed {
   position: relative;
   contain: paint;
@@ -7,25 +5,15 @@
   border-style: none;
   overflow: hidden;
 
-  /* TODO: dynamic dash-size */
-  --dash-size: 20px;
-  /* TODO: dynamic dash-count */
-  --dash-count: 15;
-}
-
-.border-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  --inline-full-width: 100cqi;
+  --inline-full-height: 100cqb;
 
   /* Dynamic dimensions using container units */
-  --effective-width: calc(100cqi - var(--border-width));
-  --effective-height: calc(100cqb - var(--border-width));
+  --effective-width: calc(var(--inline-full-width) - var(--border-width));
+  --effective-height: calc(var(--inline-full-height) - var(--border-width));
 
-  /* Use centerline radius (border-radius - border-width/2) so the stroke’s outer edge matches the rounded box; clamp to avoid gaps or overshoot. */
-  --path-radius-raw: calc(var(--border-radius) - (var(--border-width) / 2));
+  /* Use centerline radius so the stroke’s outer edge matches the rounded box */
+  --path-radius-raw: calc(var(--border-radius, 0rem) - (var(--border-width) / 2));
   --max-path-radius-x: calc(var(--effective-width) / 2);
   --max-path-radius-y: calc(var(--effective-height) / 2);
   --max-path-radius: min(var(--max-path-radius-x), var(--max-path-radius-y));
@@ -36,6 +24,13 @@
   --circular-parts: calc(2 * pi * var(--path-radius));
   --total-perimeter: calc(var(--straight-edges) + var(--circular-parts));
 
+  /* Dash count calculations */
+  /* Unitless values through tan(atan2(value, 1px)) workaround */
+  /* Reference: https://dev.to/janeori/css-type-casting-to-numeric-tanatan2-scalars-582j */
+  --total-perimeter-unitless: tan(atan2(var(--total-perimeter), 1px));
+  --dash-size-unitless: tan(atan2(var(--dash-size), 1px));
+  --dash-count: round(down, calc(var(--total-perimeter-unitless) / (2 * var(--dash-size-unitless))), 1);
+
   /* Gap calculations */
   --total-dash-length: calc(var(--dash-count) * var(--dash-size));
   --total-gap-length: max(0px, calc(var(--total-perimeter) - var(--total-dash-length)));
@@ -43,6 +38,28 @@
 
   /* Cycle length calculations */
   --cycle-length: calc(var(--dash-size) + var(--gap-size));
+}
+
+.border-dashed {
+  /* TODO: dynamic dash-size */
+  /* TODO: account for 0px dash-size */
+  --dash-size: 20px;
+}
+
+/* TODO: override other border-style variants */
+/* TODO: add dotted border */
+.border-dotted {
+  /* TODO: dynamic gap-size */
+  --dash-size: 0px;
+}
+
+/* TODO: fix Safari border shifted to the right */
+.border-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .border-svg rect {
@@ -54,17 +71,19 @@
   ry: var(--path-radius);
 
   fill: none;
-  /* TODO: dynamic border-color */
   stroke: var(--border-color, #000);
   stroke-width: var(--border-width);
-  /* TODO: dynamic stroke-linecap */
-  stroke-linecap: var(--stroke-linecap, round);
+  stroke-linecap: var(--dash-stroke-linecap, round);
   stroke-dasharray: var(--dash-size) var(--gap-size);
+  stroke-opacity: var(--border-opacity, 1);
+
+  animation: var(--dash-animation, none);
 }
 
-.border-animate .border-svg rect {
+@utility border-animate {
   /* TODO: dynamic direction, type, duration of animation */
-  animation: dash-move var(--animation-duration, 1s) var(--animation-timing-function, linear) var(--animation-iteration-count, infinite);
+  --dash-animation: dash-move var(--animation-duration, 1s) 
+  var(--animation-timing-function, linear) var(--animation-iteration-count, infinite);
 }
 
 @keyframes dash-move {
@@ -73,36 +92,37 @@
   }
 }
 
-/* TODO: add container queries for different widths and heights */
-@container (min-width: 201px) {
-  .border-svg {
-      --dash-count: 32;
-  }
-}
-
-@container (min-width: 351px) {
-  .border-svg {
-      --dash-count: 48;
-  }
-}
-
-/* Border Width */
 .border { --border-width: 1px; }
 @utility border-* {
+  --border-width: --value([length]);
   --border-width: calc(--value(number) * 1px);
-  --border-width: --value([length], "initial", [*]);
+
+  /* This doesn't work for border color classes like border-red-500 */
+  --border-color: --value([color]);
+
+  --border-opacity: clamp(0, calc(--modifier(number) / 100), 1);
+  --border-opacity: clamp(0, calc(--modifier([number]) / 1), 1);
 }
 /* TODO: account for border-width variants */
 
+/* Dash Linecap */
+.dash-round { --dash-stroke-linecap: round; }
+.dash-butt { --dash-stroke-linecap: butt; }
+.dash-square { --dash-stroke-linecap: square; }
+
 /* Border Radius */
-.rounded      { --border-radius: var(--radius-xs, 0.25rem); }
-.rounded-sm   { --border-radius: var(--radius-sm, 0.125rem); }
+.rounded-xs   { --border-radius: var(--radius-xs, 0.125rem); }
+.rounded-sm   { --border-radius: var(--radius-sm, 0.25rem); }
 .rounded-md   { --border-radius: var(--radius-md, 0.375rem); }
 .rounded-lg   { --border-radius: var(--radius-lg, 0.5rem); }
 .rounded-xl   { --border-radius: var(--radius-xl, 0.75rem); }
 .rounded-2xl  { --border-radius: var(--radius-2xl, 1rem); }
 .rounded-3xl  { --border-radius: var(--radius-3xl, 1.5rem); }
 .rounded-4xl  { --border-radius: var(--radius-4xl, 2rem); }
-.rounded-none { --border-radius: 0; }
-.rounded-full { --border-radius: var(--radius-full, 9999px); }
+.rounded      { --border-radius: 0.25rem; }
+.rounded-none { --border-radius: 0rem; }
+.rounded-full { --border-radius: 9999px; }
+@utility rounded-* {
+  --border-radius: --value([length]);
+}
 /* TODO: account for border-radius variants */
