@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "tw-border";
+@import "../../src/tw-border.css";
 
 body {
   font-family: Arial, Helvetica, sans-serif;

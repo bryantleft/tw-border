@@ -1,6 +1,6 @@
-# tw-border
+# tw-border (beta)
 
-A collection of Tailwind CSS v4 utilities for advanced border customization and animations. Currently in beta.
+A collection of Tailwind CSS v4 utilities for advanced border customization and animations.
 
 ## Installation
 
@@ -21,7 +21,7 @@ Add to your global stylesheet:
     <rect/>
   </svg>
   Content
-  </div>
+</div>
 ```
 
 - Compatible with Chromium, WebKit, Gecko

@@ -1,12 +1,12 @@
 @property --full-cqw {
   syntax: "<length>";
-  initial-value: 100cqw;
+  initial-value: 0px;
   inherits: false;
 }
 
 @property --full-cqh {
   syntax: "<length>";
-  initial-value: 100cqh;
+  initial-value: 0px;
   inherits: false;
 }
 
@@ -39,8 +39,8 @@
   --full-cqw: 100cqw;
   --full-cqh: 100cqh;
 
-  --inline-full-width: tan(atan2(var(--full-cqw, 100cqw), 1px)) * 1px;
-  --inline-full-height: tan(atan2(var(--full-cqh, 100cqh), 1px)) * 1px;
+  --inline-full-width: tan(atan2(var(--full-cqw), 1px)) * 1px;
+  --inline-full-height: tan(atan2(var(--full-cqh), 1px)) * 1px;
 
   /* Dynamic dimensions using container units */
   --effective-width: calc(var(--inline-full-width) - var(--border-width));
