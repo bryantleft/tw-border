@@ -1,28 +1,27 @@
 # tw-border
 
-A collection of Tailwind CSS v4 utilities for advanced border customization and animations
+A collection of Tailwind CSS v4 utilities for advanced border customization and animations. Currently in beta.
 
 ## Installation
 
-Install the plugin:
 ```bash
-npm install -D tw-border
+npm install -D tw-border@beta
 ```
 
-Add the `@import` directive for this plugin to your `app.css` or `globals.css` file:
+Add to your global stylesheet:
 ```css
 @import "tw-border";
 ```
 
 ## Usage
 
-TBA
+```html
+<div class="border-dashed border-2 rounded-lg dash-round border-animate">
+  <svg class="border-svg">
+    <rect/>
+  </svg>
+  Content
+  </div>
+```
 
-
-
-
-##
-
-- seam point causes starting dash size changes (grok 4 solved, claude 4 didn’t)
-- size responsive, 
-- unfortunately, we need the svg
+- Compatible with Chromium, WebKit, Gecko

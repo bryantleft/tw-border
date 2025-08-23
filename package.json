@@ -1,6 +1,6 @@
 {
   "name": "tw-border",
-  "version": "1.0.0",
+  "version": "0.1.0-beta.1",
   "description": "Tailwind CSS v4 plugin for advanced border customization and animations",
   "keywords": [
     "animate",
@@ -11,16 +11,30 @@
     "tailwind",
     "tailwindcss"
   ],
+  "homepage": "https://github.com/bryantleft/tw-border#readme",
+  "bugs": {
+    "url": "https://github.com/bryantleft/tw-border/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryantleft/tw-border.git"
+  },
   "license": "MIT",
   "author": {
     "name": "Bryant Le",
     "url": "https://bryantleft.com"
   },
   "main": "./dist/tw-border.css",
+  "style": "./dist/tw-border.css",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "pnpx @tailwindcss/cli -i ./src/tw-border.css -o ./dist/tw-border.css -m"
+    "build": "pnpx @tailwindcss/cli -i ./src/tw-border.css -o ./dist/tw-border.css -m",
+    "prepublishOnly": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
   }
 }
