@@ -1,3 +1,15 @@
+@property --full-cqw {
+  syntax: "<length>";
+  initial-value: 100cqw;
+  inherits: false;
+}
+
+@property --full-cqh {
+  syntax: "<length>";
+  initial-value: 100cqh;
+  inherits: false;
+}
+
 .border-dashed {
   position: relative;
   contain: paint;
@@ -5,15 +17,37 @@
   border-style: none;
   overflow: hidden;
 
-  --inline-full-width: 100cqi;
-  --inline-full-height: 100cqb;
+  /* TODO: dynamic dash-size */
+  /* TODO: account for 0px dash-size */
+  --dash-size: 20px;
+}
+
+/* TODO: override other border-style variants */
+/* TODO: add dotted border */
+.border-dotted {
+  /* TODO: dynamic gap-size */
+  --dash-size: 0px;
+}
+
+.border-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  --full-cqw: 100cqw;
+  --full-cqh: 100cqh;
+
+  --inline-full-width: tan(atan2(var(--full-cqw, 100cqw), 1px)) * 1px;
+  --inline-full-height: tan(atan2(var(--full-cqh, 100cqh), 1px)) * 1px;
 
   /* Dynamic dimensions using container units */
   --effective-width: calc(var(--inline-full-width) - var(--border-width));
   --effective-height: calc(var(--inline-full-height) - var(--border-width));
 
   /* Use centerline radius so the stroke’s outer edge matches the rounded box */
-  --path-radius-raw: calc(var(--border-radius, 0rem) - (var(--border-width) / 2));
+  --path-radius-raw: calc(var(--border-radius, 0px) - (var(--border-width) / 2));
   --max-path-radius-x: calc(var(--effective-width) / 2);
   --max-path-radius-y: calc(var(--effective-height) / 2);
   --max-path-radius: min(var(--max-path-radius-x), var(--max-path-radius-y));
@@ -38,28 +72,6 @@
 
   /* Cycle length calculations */
   --cycle-length: calc(var(--dash-size) + var(--gap-size));
-}
-
-.border-dashed {
-  /* TODO: dynamic dash-size */
-  /* TODO: account for 0px dash-size */
-  --dash-size: 20px;
-}
-
-/* TODO: override other border-style variants */
-/* TODO: add dotted border */
-.border-dotted {
-  /* TODO: dynamic gap-size */
-  --dash-size: 0px;
-}
-
-/* TODO: fix Safari border shifted to the right */
-.border-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 
 .border-svg rect {
@@ -111,17 +123,16 @@
 .dash-square { --dash-stroke-linecap: square; }
 
 /* Border Radius */
-.rounded-xs   { --border-radius: var(--radius-xs, 0.125rem); }
-.rounded-sm   { --border-radius: var(--radius-sm, 0.25rem); }
-.rounded-md   { --border-radius: var(--radius-md, 0.375rem); }
-.rounded-lg   { --border-radius: var(--radius-lg, 0.5rem); }
-.rounded-xl   { --border-radius: var(--radius-xl, 0.75rem); }
-.rounded-2xl  { --border-radius: var(--radius-2xl, 1rem); }
-.rounded-3xl  { --border-radius: var(--radius-3xl, 1.5rem); }
-.rounded-4xl  { --border-radius: var(--radius-4xl, 2rem); }
-.rounded      { --border-radius: 0.25rem; }
-.rounded-none { --border-radius: 0rem; }
-.rounded-full { --border-radius: 9999px; }
+.rounded-xs   { --border-radius: 2px; }
+.rounded, .rounded-sm   { --border-radius: 4px; }
+.rounded-md   { --border-radius: 6px; }
+.rounded-lg   { --border-radius: 8px; }
+.rounded-xl   { --border-radius: 12px; }
+.rounded-2xl  { --border-radius: 16px; }
+.rounded-3xl  { --border-radius: 24px; }
+.rounded-4xl  { --border-radius: 32px; }
+.rounded-none { --border-radius: 0px; }
+.rounded-full { --border-radius: calc(infinity * 1px); }
 @utility rounded-* {
   --border-radius: --value([length]);
 }
