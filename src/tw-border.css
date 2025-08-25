@@ -10,6 +10,7 @@
   inherits: false;
 }
 
+/* TODO: fix Safari border shift to right */
 .border-dashed {
   position: relative;
   contain: paint;
@@ -109,8 +110,8 @@
   --border-width: --value([length]);
   --border-width: calc(--value(number) * 1px);
 
-  /* This doesn't work for border color classes like border-red-500 */
   --border-color: --value([color]);
+  --border-color: --value(--color-*);
 
   --border-opacity: clamp(0, calc(--modifier(number) / 100), 1);
   --border-opacity: clamp(0, calc(--modifier([number]) / 1), 1);

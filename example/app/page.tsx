@@ -14,7 +14,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <div className="border-3 border-[#ff0000]/30 border-dashed hover:border-animate bg-red-100 w-[450px] h-[300px] rounded-full">
+            <div className="border-3 border-red-500/30 border-dashed hover:border-animate bg-red-100 w-[450px] h-[300px] rounded-full">
               <svg className="border-svg"><rect /></svg>
             </div>
           </div>
