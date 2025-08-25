@@ -4,7 +4,7 @@ export default function Home() {
       <div className="p-8">
         <div className="grid grid-cols-1 gap-8 items-center justify-items-center">
           <div>
-            <div className="border-2/30 border-dashed border-animate bg-gray-300 w-[150px] h-[100px]">
+            <div className="border-2/30 border-dashed border-animate dash-24 bg-gray-300 w-[150px] h-[100px]">
               <svg className="border-svg"><rect /></svg>
             </div>
           </div>
@@ -14,7 +14,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <div className="border-3 border-red-500/30 border-dashed hover:border-animate bg-red-100 w-[450px] h-[300px] rounded-full">
+            <div className="border-3 border-red-500/30 border-dashed hover:border-animate dash-[5px] bg-red-100 w-[450px] h-[300px] rounded-full">
               <svg className="border-svg"><rect /></svg>
             </div>
           </div>

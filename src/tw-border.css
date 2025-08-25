@@ -10,6 +10,12 @@
   inherits: false;
 }
 
+@property --dash-size {
+  syntax: "<length>";
+  initial-value: 12px;
+  inherits: true;
+}
+
 /* TODO: fix Safari border shift to right */
 .border-dashed {
   position: relative;
@@ -17,18 +23,8 @@
   container-type: size; /* Enables container queries and units */
   border-style: none;
   overflow: hidden;
-
-  /* TODO: dynamic dash-size */
-  /* TODO: account for 0px dash-size */
-  --dash-size: 20px;
 }
-
 /* TODO: override other border-style variants */
-/* TODO: add dotted border */
-.border-dotted {
-  /* TODO: dynamic gap-size */
-  --dash-size: 0px;
-}
 
 .border-svg {
   position: absolute;
@@ -119,9 +115,13 @@
 /* TODO: account for border-width variants */
 
 /* Dash Linecap */
-.dash-round { --dash-stroke-linecap: round; }
-.dash-butt { --dash-stroke-linecap: butt; }
-.dash-square { --dash-stroke-linecap: square; }
+@utility dash-round { --dash-stroke-linecap: round; }
+@utility dash-butt { --dash-stroke-linecap: butt; }
+@utility dash-square { --dash-stroke-linecap: square; }
+@utility dash-* {
+  --dash-size: max(1px, --value([length]));
+  --dash-size: max(1px, calc(--value(number) * 1px));
+}
 
 /* Border Radius */
 .rounded-xs   { --border-radius: 2px; }
