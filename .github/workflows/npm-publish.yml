@@ -4,6 +4,9 @@ on:
   push:
     branches:
     - main
+    paths-ignore:
+    - 'example/**'
+    - '**.md'
   release:
     types: [created]
 
