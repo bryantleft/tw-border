@@ -124,16 +124,16 @@
 }
 
 /* Border Radius */
-.rounded-xs   { --border-radius: 2px; }
-.rounded, .rounded-sm   { --border-radius: 4px; }
-.rounded-md   { --border-radius: 6px; }
-.rounded-lg   { --border-radius: 8px; }
-.rounded-xl   { --border-radius: 12px; }
-.rounded-2xl  { --border-radius: 16px; }
-.rounded-3xl  { --border-radius: 24px; }
-.rounded-4xl  { --border-radius: 32px; }
-.rounded-none { --border-radius: 0px; }
-.rounded-full { --border-radius: calc(infinity * 1px); }
+.rounded-xs   { --border-radius: var(--radius-xs, 2px); }
+.rounded, .rounded-sm   { --border-radius: var(--radius-sm, 4px); }
+.rounded-md   { --border-radius: var(--radius-md, 6px); }
+.rounded-lg   { --border-radius: var(--radius-lg, 8px); }
+.rounded-xl   { --border-radius: var(--radius-xl, 12px); }
+.rounded-2xl  { --border-radius: var(--radius-2xl, 16px); }
+.rounded-3xl  { --border-radius: var(--radius-3xl, 24px); }
+.rounded-4xl  { --border-radius: var(--radius-4xl, 32px); }
+.rounded-none { --border-radius: var(--radius-none, 0px); }
+.rounded-full { --border-radius: var(--radius-full, calc(infinity * 1px)); }
 @utility rounded-* {
   --border-radius: --value([length]);
 }
