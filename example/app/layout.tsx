@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Logo } from "@/components/logo";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -74,6 +75,7 @@ export default function RootLayout({
             </div>
           </nav>
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
