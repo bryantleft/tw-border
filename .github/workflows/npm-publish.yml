@@ -5,7 +5,7 @@ on:
     branches:
     - main
     paths-ignore:
-    - 'example/**'
+    - 'demo/**'
     - '**.md'
   release:
     types: [created]

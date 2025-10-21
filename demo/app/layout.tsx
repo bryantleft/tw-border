@@ -56,6 +56,12 @@ export default function RootLayout({
                     demo
                   </Link>
                   <Link
+                    href="/examples"
+                    className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+                  >
+                    examples
+                  </Link>
+                  <Link
                     href="/install"
                     className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
                   >

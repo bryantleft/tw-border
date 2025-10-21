@@ -177,12 +177,14 @@ export default function Home() {
   const className = useMemo(() => buildClassName(config), [config]);
 
   const snippet = useMemo(() => {
-    return `<div style={{ width: '${dimensions.width - 32}px', height: '${dimensions.height - 32}px' }}>
-  <div className="${className}">
+    const snippetClassName = className
+      .replace('w-full', `w-[${dimensions.width - 32}px]`)
+      .replace('h-full', `h-[${dimensions.height - 32}px]`);
+    
+    return `<div className="${snippetClassName}">
   <svg className="border-svg">
     <rect />
   </svg>
-  </div>
 </div>`;
   }, [className, dimensions]);
 
